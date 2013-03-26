@@ -7,4 +7,8 @@ public class ClassA {
     
   
   }
+  
+  public int function(int i) {
+    retun i + 5;
+  }
 }
