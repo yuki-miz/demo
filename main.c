@@ -2,6 +2,6 @@
 
 public class ClassA {
   public void Main() {
-    printf("%s", "hi")
+    printf("%s", "Hi")
   }
 }
