@@ -6,6 +6,6 @@ public class ClassA {
   }
   
   public int function(int i) {
-    retun i + 3;
+    retun i + 5;
   }
 }
