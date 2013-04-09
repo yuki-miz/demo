@@ -1,0 +1,18 @@
+■GitHubアカウントの作成
+	https://github.com
+	にて、適当に
+	
+	水島のデモ用リポジトリ
+	https://github.com/mizushima/demo
+	
+■Gitのインストール
+	TortoiseGitがお勧め
+	コマンドラインでいいならMsysGit
+
+■SSH鍵の作成
+	マシンの中にまだ持ってないなら、TortoiseGitから作れる
+	詳細後日記述？
+
+■リポジトリの取得
+
+
