@@ -1,18 +1,22 @@
-��GitHub�A�J�E���g�̍쐬
+﻿■GitHubアカウントの作成
 	https://github.com
-	�ɂāA�K����
+	にて、適当に
 	
-	�����̃f���p���|�W�g��
+	水島のデモ用リポジトリ
 	https://github.com/mizushima/demo
 	
-��Git�̃C���X�g�[��
-	TortoiseGit��������
-	�R�}���h���C���ł����Ȃ�MsysGit
+■Gitのインストール
+	TortoiseGitがお勧め
+	コマンドラインでいいならMsysGit
 
-��SSH���̍쐬
-	�}�V���̒��ɂ܂������ĂȂ��Ȃ�ATortoiseGit�������
-	�ڍ׌���L�q�H
+■SSH鍵の作成
+	マシンの中にまだ持ってないなら、TortoiseGitから作れる
+	詳細後日記述？
 
-�����|�W�g���̎擾
+■リポジトリの取得
 
+
+■注意事項メモ
+テキストファイルはUTF8(BOM無し)で保存すること。
+SjisやUTF8(BOM有り)などはCUIやGitHub上で文字化けする。
 
