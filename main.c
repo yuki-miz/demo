@@ -4,7 +4,7 @@ public class ClassA {
   public void Main() {
     printf("%s", "Hi")
     
-    function(3);
+    ret = function(3);
   
   }
   
