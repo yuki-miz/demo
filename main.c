@@ -6,6 +6,7 @@ public class ClassA {
   }
   
   public int function(int i) {
+    //こめんと
     retun i + 5;
   }
 }
