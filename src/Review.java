@@ -7,6 +7,7 @@ class Review {
 		System.out.println(getTodayString());
 	}
 
+	//本日の日付を、アンダーバー接続の文字列で返す
 	public static String getTodayString(){
 		Date now = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy_MM_dd");
