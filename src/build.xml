@@ -4,4 +4,19 @@
   <target name="compile">
     <javac classpath="junit-4.10.jar" srcdir="." includeantruntime="false"/>
   </target>
+  <target name="test" depends="compile">
+  		<junit fork="yes" haltonfailure="yes">
+  			<test name="ReviewTest"/>
+  			<formatter type="plain" usefile="false" />
+  			<classpath>
+  				<pathelement path="."/>
+  				<pathelement path="./junit-4.10.jar"/>
+  			</classpath>
+  		</junit>
+  </target>
+	<target name="clean" description="clean up" >
+		<delete>
+			<fileset dir="." includes="*.class"/>
+		</delete>
+	</target>
 </project>
