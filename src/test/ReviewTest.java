@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+import static org.hamcrest.core.Is.is;
 import org.junit.runner.JUnitCore;
 import org.junit.Test;
 
@@ -11,7 +12,6 @@ public class ReviewTest{
 	public void testA(){
 		Review obj = new Review();
 		String msg = obj.getTodayString();
-		fail("test");
-		//assertThat(msg.length(), 7);
+		assertThat(msg.length(), is(10));
 	}
 }
