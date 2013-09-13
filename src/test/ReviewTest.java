@@ -14,4 +14,10 @@ public class ReviewTest{
 		String msg = obj.getTodayString();
 		assertThat(msg.length(), is(10));
 	}
+
+	public void TestSeparator() {
+		Review obj = new Review();
+		String msg = obj.getTodayString();
+		assertThat(msg.charAt(4),is('-'));
+	}
 }
