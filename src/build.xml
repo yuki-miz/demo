@@ -16,6 +16,16 @@
         <pathelement location="${test.build}" />
         <pathelement location="junit-4.10.jar" />
     </path>
+    <!-- Cobertura用 -->
+    <property name="convert.dir" location="${build}/convert"/>
+    <property name="lib.cobertura.dir" location="./lib/cobertura-2.0.3"/>
+    <path id="cobertura.lib">
+        <fileset dir="${lib.cobertura.dir}">
+            <include name="cobertura.jar"/>
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
     <target name="init">
         <!-- Create the time stamp -->
         <tstamp/>
@@ -37,6 +47,17 @@
             <formatter type="plain" usefile="false" />
             <classpath refid="test.classpath" />
         </junit>
+    </target>
+
+    <taskdef classpathref="cobertura.lib" resource="tasks.properties"/>
+    <target name="instrument" depends="compile">
+        <delete file="cobertura.ser"/>
+        <mkdir dir="${convert.dir}"/>
+        <cobertura-instrument todir="${convert.dir}">
+            <fileset dir="${build}">
+                <include name="**/*.class"/>
+            </fileset>
+        </cobertura-instrument>
     </target>
     <target name="dist" depends="test" description="generate the distribution" >
         <!-- jarファイルの出力先ディレクトリを作成 -->
