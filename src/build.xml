@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="Shift_JIS" ?>
 
-<project name="sample" default="dist" basedir=".">
+<project name="sample" default="coverage" basedir=".">
     <!-- 以下を参照して作成 -->
     <!-- http://symfoware.blog68.fc2.com/blog-entry-993.html -->
     <!-- Mainのビルドとjarファイルの作成に必要な情報 -->
@@ -18,7 +18,7 @@
         <pathelement location="junit-4.10.jar" />
     </path>
     <!-- Cobertura用 -->
-    <property name="convert.dir" location="${build}/convert"/>
+    <property name="convert.dir" location="${test.build}/convert"/>
     <property name="lib.cobertura.dir" location="./lib/cobertura-2.0.3"/>
     <path id="cobertura.lib">
         <fileset dir="${lib.cobertura.dir}">
@@ -32,12 +32,13 @@
         <tstamp/>
         <mkdir dir="${build}"/>
         <mkdir dir="${test.build}"/>
+        <delete file="cobertura.ser"/>
     </target>
     <target name="compile" depends="init" description="compile the source " >
         <!-- Mainをビルドし、buildフォルダに出力 -->
         <javac srcdir="${src}" destdir="${build}" includeAntRuntime="no"/>
         <!-- MainTestをビルドし、testbuildフォルダに出力 -->
-        <javac srcdir="${test.src}" destdir="${test.build}" includeAntRuntime="no">
+        <javac srcdir="${test.src}" destdir="${test.build}" includeAntRuntime="no" debug="yes" debuglevel="lines,vars,source" includeantruntime="false">
             <classpath refid="test.classpath" />
         </javac>
     </target>
@@ -47,14 +48,14 @@
         <delete file="cobertura.ser"/>
         <mkdir dir="${convert.dir}"/>
         <cobertura-instrument todir="${convert.dir}">
-            <fileset dir="${build}">
+            <fileset dir="${test.build}">
                 <include name="**/*.class"/>
             </fileset>
         </cobertura-instrument>
     </target>
 
     <property name="report.junit.dir" location="${report.dir}/junit"/>
-    <target name="test" depends="compile" description="test the source " >
+    <target name="test" depends="instrument" description="test the source " >
         <!-- JUnitによるテストを実行 -->
         <mkdir dir="${report.junit.dir}"/>
         <junit fork="yes" printsummary="yes" haltonfailure="no">
@@ -62,8 +63,8 @@
             <test name="${test.class.name}" />
             
             <classpath>
-                <pathelement location="${convert.dir}"/>
                 <path refid="test.classpath"/>
+                <pathelement location="${convert.dir}"/>
                 <path refid="cobertura.lib"/>
             </classpath>
 
@@ -74,6 +75,17 @@
                 </fileset>
             </batchtest>
         </junit>
+    </target>
+
+    <!-- カバレッジレポートの作成 -->
+    <property name="report.cobertura.dir" location="${report.dir}/cobertura"/>
+    <target name ="coverage" depends="test" description="make coverage report">
+        <mkdir dir="${report.cobertura.dir}"/>
+        <cobertura-report format="xml" destdir="${report.cobertura.dir}">
+            <fileset dir="${src}">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
     </target>
 
 
