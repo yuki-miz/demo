@@ -11,6 +11,7 @@
     <property name="test.src" location="test"/>
     <property name="test.build" location="testbuild"/>
     <property name="test.class.name" value="ReviewTest" />
+    <property name="report.dir" value="report"/>
     <path id="test.classpath">
         <pathelement location="${build}" />
         <pathelement location="${test.build}" />
@@ -40,14 +41,6 @@
             <classpath refid="test.classpath" />
         </javac>
     </target>
-    <target name="test" depends="compile" description="test the source " >
-        <!-- JUnitによるテストを実行 -->
-        <junit fork="yes" haltonfailure="yes">
-            <test name="${test.class.name}" />
-            <formatter type="plain" usefile="false" />
-            <classpath refid="test.classpath" />
-        </junit>
-    </target>
 
     <taskdef classpathref="cobertura.lib" resource="tasks.properties"/>
     <target name="instrument" depends="compile">
@@ -59,6 +52,31 @@
             </fileset>
         </cobertura-instrument>
     </target>
+
+    <property name="report.junit.dir" location="${report.dir}/junit"/>
+    <target name="test" depends="compile" description="test the source " >
+        <!-- JUnitによるテストを実行 -->
+        <mkdir dir="${report.junit.dir}"/>
+        <junit fork="yes" printsummary="yes" haltonfailure="no">
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="cobertura.ser"/>
+            <test name="${test.class.name}" />
+            
+            <classpath>
+                <pathelement location="${convert.dir}"/>
+                <path refid="test.classpath"/>
+                <path refid="cobertura.lib"/>
+            </classpath>
+
+            <formatter type="xml"/>
+            <batchtest fork="yes" todir="${report.junit.dir}">
+                <fileset dir="${test.src}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+
     <target name="dist" depends="test" description="generate the distribution" >
         <!-- jarファイルの出力先ディレクトリを作成 -->
         <mkdir dir="${dist}"/>
