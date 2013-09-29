@@ -30,11 +30,14 @@
     <target name="init">
         <!-- Create the time stamp -->
         <tstamp/>
-        <mkdir dir="${build}"/>
-        <mkdir dir="${test.build}"/>
+        <delete dir="${build}"/>
+        <delete dir ="${test.build}"/>
+        <delete dir ="${report.dir}"/>
         <delete file="cobertura.ser"/>
     </target>
     <target name="compile" depends="init" description="compile the source " >
+        <mkdir dir="${build}"/>
+        <mkdir dir="${test.build}"/>
         <!-- Mainをビルドし、buildフォルダに出力 -->
         <javac srcdir="${src}" destdir="${build}" includeAntRuntime="no"/>
         <!-- MainTestをビルドし、testbuildフォルダに出力 -->
@@ -45,7 +48,6 @@
 
     <taskdef classpathref="cobertura.lib" resource="tasks.properties"/>
     <target name="instrument" depends="compile">
-        <delete file="cobertura.ser"/>
         <mkdir dir="${convert.dir}"/>
         <cobertura-instrument todir="${convert.dir}">
             <fileset dir="${test.build}">
