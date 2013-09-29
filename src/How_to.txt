@@ -1,7 +1,0 @@
-How to
-
--Compile
-javac -classpath junit-4.10.jar Review.java ReviewTest.java
-
--Run
-java -classpath ".;./junit-4.10.jar" org.junit.runner.JUnitCore ReviewTest
