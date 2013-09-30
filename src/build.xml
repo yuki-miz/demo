@@ -30,14 +30,14 @@
     <target name="init">
         <!-- Create the time stamp -->
         <tstamp/>
-        <delete dir="${build}"/>
-        <delete dir ="${test.build}"/>
         <delete dir ="${report.dir}"/>
         <delete file="cobertura.ser"/>
-    </target>
-    <target name="compile" depends="init" description="compile the source " >
         <mkdir dir="${build}"/>
         <mkdir dir="${test.build}"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source " >
+
         <!-- Mainをビルドし、buildフォルダに出力 -->
         <javac srcdir="${src}" destdir="${build}" includeAntRuntime="no"/>
         <!-- MainTestをビルドし、testbuildフォルダに出力 -->
@@ -103,8 +103,14 @@
     </target>
     <target name="clean" description="clean up" >
         <!-- Delete the ${build} and ${dist} directory trees -->
+
         <delete dir="${build}"/>
-        <delete dir="${test.build}"/>
+        <delete dir ="${test.build}"/>
+        <delete dir ="${report.dir}"/>
+        <delete file="cobertura.ser"/>
         <delete dir="${dist}"/>
+        <delete>
+            <fileset dir="." includes="TEST-*"/>
+        </delete>
     </target>
 </project>
